@@ -988,3 +988,34 @@ textarea {
         margin-top: 10px;
     }
 }
+
+/* Estilos para o botão de baixar tabela */
+.btn-tabela {
+    background-color: #17a2b8;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.3s;
+}
+
+.btn-tabela:hover {
+    background-color: #138496;
+    color: white;
+    text-decoration: none;
+}
+
+/* Estilos para o tema escuro */
+body.dark-theme .btn-tabela {
+    background-color: #138496;
+}
+
+body.dark-theme .btn-tabela:hover {
+    background-color: #117a8b;
+}
