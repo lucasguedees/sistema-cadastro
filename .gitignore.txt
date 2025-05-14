@@ -1,0 +1,7 @@
+@"
+.DS_Store
+node_modules/
+*.log
+.env
+sistema-cadastro/
+"@ | Out-File -FilePath .gitignore -Encoding utf8

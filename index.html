@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Sistema de Cadastro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="light-theme">
+    <button id="theme-toggle" class="theme-toggle" aria-label="Alternar tema">
+        <i class="fas fa-moon"></i>
+    </button>
+    <div class="login-container">
+        <div class="login-box">
+            <h1>Login</h1>
+            <form id="loginForm">
+                <div class="input-group">
+                    <label for="username">Usuário:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Senha:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit">Entrar</button>
+            </form>
+           <!-- <p id="error-message" class="error-message"></p>-->
+        </div>
+    </div>
+    <!-- Scripts principais -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-config.js"></script>
+    
+    <!-- Scripts da aplicação (carregados após o Supabase) -->
+    <script src="js/auth.js"></script>
+    <script>
+        // Verifica se o usuário já está autenticado
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuth();
+        });
+    </script>
+    
+    <!-- Verificação de inicialização -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Verificando inicialização do Supabase...');
+            const errorMsg = document.getElementById('error-message');
+            
+            if (typeof window.supabase === 'undefined') {
+                const errorText = 'Erro: Não foi possível carregar o sistema. Por favor, recarregue a página.';
+                console.error(errorText);
+                if (errorMsg) {
+                    errorMsg.textContent = errorText;
+                } else {
+                    alert(errorText);
+                }
+            } else {
+                console.log('Supabase pronto para uso:', window.supabase);
+            }
+        });
+    </script>
+    <script src="js/theme.js"></script>
+</body>
+</html>

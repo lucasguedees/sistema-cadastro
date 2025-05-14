@@ -1,0 +1,990 @@
+/* Reset e estilos gerais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Estilos do tema */
+body {
+    background-color: #f5f5f5;
+    line-height: 1.6;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Tema escuro */
+body.dark-theme {
+    background-color: #121212;
+    color: #f5f5f5; /* Texto mais claro para melhor contraste */
+}
+
+/* Cabeçalhos */
+body.dark-theme h1,
+body.dark-theme h2,
+body.dark-theme h3,
+body.dark-theme h4,
+body.dark-theme h5,
+body.dark-theme h6 {
+    color: #ffffff; /* Branco puro para títulos */
+}
+
+/* Caixas de formulário e cards */
+body.dark-theme .login-box,
+body.dark-theme .search-form,
+body.dark-theme .result-item,
+body.dark-theme .form-container {
+    background-color: #1e1e1e;
+    color: #f5f5f5;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    border: 1px solid #444;
+}
+
+/* Estilo para o campo de data com calendário */
+.date-input {
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.calendar-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 8px 12px;
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    color: #495057;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.calendar-button i {
+    margin-right: 8px;
+}
+
+.calendar-button:hover {
+    background-color: #e9ecef;
+    border-color: #adb5bd;
+}
+
+body.dark-theme .calendar-button {
+    background-color: #2d2d2d;
+    border-color: #555;
+    color: #f8f9fa;
+}
+
+body.dark-theme .calendar-button:hover {
+    background-color: #3d3d3d;
+    border-color: #6c757d;
+}
+
+/* Estilo para o calendário do Flatpickr */
+.flatpickr-calendar {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.flatpickr-day.selected, 
+.flatpickr-day.selected:hover, 
+.flatpickr-day.startRange, 
+.flatpickr-day.endRange, 
+.flatpickr-day.selected.inRange, 
+.flatpickr-day.startRange.inRange, 
+.flatpickr-day.endRange.inRange, 
+.flatpickr-day.selected:focus, 
+.flatpickr-day.startRange:focus, 
+.flatpickr-day.endRange:focus, 
+.flatpickr-day.selected:hover, 
+.flatpickr-day.startRange:hover, 
+.flatpickr-day.endRange:hover, 
+.flatpickr-day.selected.prevMonthDay, 
+.flatpickr-day.startRange.prevMonthDay, 
+.flatpickr-day.endRange.prevMonthDay, 
+.flatpickr-day.selected.nextMonthDay, 
+.flatpickr-day.startRange.nextMonthDay, 
+.flatpickr-day.endRange.nextMonthDay {
+    background: #007bff;
+    border-color: #007bff;
+}
+
+/* Estilo para o tema escuro */
+body.dark-theme .flatpickr-calendar {
+    background: #2d2d2d;
+    color: #f8f9fa;
+}
+
+body.dark-theme .flatpickr-day {
+    color: #f8f9fa;
+}
+
+body.dark-theme .flatpickr-day:hover {
+    background: #495057;
+}
+
+body.dark-theme .flatpickr-day.today {
+    border-color: #007bff;
+}
+
+body.dark-theme .flatpickr-day.today:hover {
+    background: #007bff;
+    color: #fff;
+}
+
+/* Estilo para o campo de texto 'Outros' no ORCRIM */
+#outroOrcrimContainer {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    border: 1px solid #dee2e6;
+}
+
+body.dark-theme #outroOrcrimContainer {
+    background-color: #2d2d2d;
+    border-color: #555;
+}
+
+#outroOrcrimContainer label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.9em;
+    color: #495057;
+}
+
+body.dark-theme #outroOrcrimContainer label {
+    color: #e9ecef;
+}
+
+#outroOrcrimContainer input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+body.dark-theme #outroOrcrimContainer input[type="text"] {
+    background-color: #2d2d2d;
+    border-color: #555;
+    color: #ffffff;
+}
+
+/* Estilo para campos com erro */
+.input-error {
+    border-color: #dc3545 !important;
+    box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25) !important;
+}
+
+/* Mensagem de erro */
+.error-message {
+    color: #dc3545;
+    font-size: 0.875em;
+    margin-top: 0.25rem;
+    display: none;
+}
+
+/* Tema escuro - mensagem de erro */
+body.dark-theme .error-message {
+    color: #ff6b6b;
+}
+
+/* Tema escuro - campo com erro */
+body.dark-theme .input-error {
+    border-color: #ff6b6b !important;
+    box-shadow: 0 0 0 0.25rem rgba(255, 107, 107, 0.25) !important;
+}
+
+/* Campos de formulário no tema escuro */
+body.dark-theme input[type="text"],
+body.dark-theme input[type="password"],
+body.dark-theme input[type="date"],
+body.dark-theme input[type="file"],
+body.dark-theme select,
+body.dark-theme textarea,
+body.dark-theme #cpf {
+    background-color: #2d2d2d;
+    border: 1px solid #555;
+    color: #ffffff; /* Texto branco puro */
+}
+
+/* Placeholder dos campos */
+body.dark-theme ::placeholder {
+    color: #aaaaaa;
+    opacity: 1; /* Firefox */
+}
+
+body.dark-theme :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #aaaaaa;
+}
+
+body.dark-theme ::-ms-input-placeholder { /* Microsoft Edge */
+    color: #aaaaaa;
+}
+
+/* Foco nos campos */
+body.dark-theme input:focus,
+body.dark-theme select:focus,
+body.dark-theme textarea:focus {
+    border-color: #4dabf7;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+    outline: none;
+}
+
+/* Links */
+body.dark-theme a {
+    color: #4dabf7;
+}
+
+body.dark-theme a:hover {
+    color: #339af0;
+}
+
+/* Botões */
+body.dark-theme button,
+body.dark-theme .btn-search,
+body.dark-theme .btn-voltar {
+    background-color: #1971c2;
+    color: white;
+}
+
+body.dark-theme button:hover,
+body.dark-theme .btn-search:hover,
+body.dark-theme .btn-voltar:hover {
+    background-color: #1864ab;
+}
+
+/* Tabelas */
+body.dark-theme table {
+    border-color: #444;
+}
+
+body.dark-theme th,
+body.dark-theme td {
+    border-color: #444;
+    color: #f5f5f5;
+}
+
+body.dark-theme th {
+    background-color: #2d2d2d;
+}
+
+/* Mensagens de erro e sucesso */
+body.dark-theme .error-message {
+    color: #ff8787;
+}
+
+body.dark-theme .success-message {
+    color: #69db7c;
+}
+
+/* Resultados de busca */
+body.dark-theme .result-item {
+    border-color: #444;
+    background-color: #252525;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-theme .result-header {
+    background-color: #2d2d2d;
+    border-bottom-color: #444;
+}
+
+body.dark-theme .result-header h3 {
+    color: #ffffff;
+}
+
+body.dark-theme .result-content {
+    background-color: #252525;
+}
+
+body.dark-theme .result-details p {
+    color: #e9ecef;
+}
+
+body.dark-theme .result-details strong {
+    color: #ffffff;
+}
+
+body.dark-theme .result-photo {
+    background-color: #2d2d2d;
+    border-color: #444;
+}
+
+body.dark-theme .no-photo {
+    background-color: #2d2d2d;
+    color: #adb5bd;
+}
+
+body.dark-theme .multi-line {
+    background-color: #2d2d2d;
+    border-left-color: #4CAF50;
+    color: #e9ecef;
+}
+
+body.dark-theme .updated-at {
+    color: #adb5bd;
+    border-top-color: #444;
+}
+
+body.dark-theme .btn-edit {
+    background-color: #2e7d32;
+}
+
+body.dark-theme .btn-edit:hover {
+    background-color: #1b5e20;
+}
+
+/* Barra de rolagem */
+body.dark-theme::-webkit-scrollbar {
+    width: 8px;
+}
+
+body.dark-theme::-webkit-scrollbar-track {
+    background: #2d2d2d;
+}
+
+body.dark-theme::-webkit-scrollbar-thumb {
+    background: #555;
+    border-radius: 4px;
+}
+
+body.dark-theme::-webkit-scrollbar-thumb:hover {
+    background: #666;
+}
+
+/* Botão de alternar tema */
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: #333;
+    font-size: 1.2rem;
+    cursor: pointer;
+    z-index: 1000;
+    padding: 8px;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.theme-toggle:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+body.dark-theme .theme-toggle {
+    color: #333;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+body.dark-theme .theme-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Estilos para a página de login */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.login-box {
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.login-box h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="date"],
+input[type="file"],
+select,
+textarea,
+#cpf {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="date"]:focus,
+input[type="file"]:focus,
+select:focus,
+textarea:focus {
+    border-color: #4dabf7;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+    outline: none;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+button:hover {
+    background-color: #45a049;
+    transform: translateY(-1px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+.btn-search {
+    background-color: #2196F3;
+}
+
+.btn-search:hover {
+    background-color: #0b7dda;
+}
+
+.btn-voltar {
+    background-color: #6c757d;
+}
+
+.btn-voltar:hover {
+    background-color: #5a6268;
+}
+
+.error-message {
+    color: #f44336;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.success-message {
+    color: #4CAF50;
+    margin: 20px 0;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Estilos para o formulário de consulta */
+.search-form {
+    background: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 25px;
+    transition: all 0.3s ease;
+}
+
+body.dark-theme .search-form {
+    background-color: #2d2d2d;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    border: 1px solid #444;
+}
+
+.search-form h2 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.search-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.search-group input[type="text"] {
+    flex: 1;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    background-color: #fff;
+    color: #333;
+}
+
+body.dark-theme .search-group input[type="text"] {
+    background-color: #3d3d3d;
+    border-color: #555;
+    color: #f5f5f5;
+}
+
+body.dark-theme .search-group input[type="text"]::placeholder {
+    color: #aaa;
+}
+
+body.dark-theme .search-group input[type="text"]:focus {
+    border-color: #4dabf7;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.btn-search,
+.btn-voltar {
+    flex: 1;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-search i,
+.btn-voltar i {
+    font-size: 1.1em;
+}
+
+.btn-search:hover,
+.btn-voltar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-search:active,
+.btn-voltar:active {
+    transform: translateY(0);
+}
+
+.search-results {
+    margin-top: 20px;
+}
+
+.result-item {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 0;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.result-item:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.result-header {
+    padding: 15px 20px;
+    border-bottom: 1px solid #eee;
+    background-color: #f8f9fa;
+    transition: all 0.3s ease;
+}
+
+.result-header h3 {
+    margin: 0;
+    color: #333;
+    font-size: 1.2em;
+    font-weight: 600;
+    text-align: center;
+    padding: 10px 0;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.result-content {
+    padding: 20px;
+    display: flex;
+    gap: 25px;
+    background-color: #fff;
+    transition: all 0.3s ease;
+}
+
+.result-photo {
+    width: 180px;
+    height: 240px;
+    background-color: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    overflow: hidden;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.result-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.result-photo:hover img {
+    transform: scale(1.03);
+}
+
+.no-photo {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6c757d;
+    background-color: #f1f3f5;
+    font-style: italic;
+    transition: all 0.3s ease;
+}
+
+.result-details {
+    flex: 1;
+    padding: 5px 0;
+}
+
+.result-details p {
+    margin: 8px 0;
+    line-height: 1.6;
+    color: #333;
+    transition: color 0.3s ease;
+}
+
+.result-details strong {
+    color: #212529;
+    transition: color 0.3s ease;
+}
+
+.multi-line {
+    white-space: pre-line;
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 10px !important;
+    border-left: 3px solid #4CAF50;
+    transition: all 0.3s ease;
+}
+
+.updated-at {
+    margin-top: 15px !important;
+    font-size: 0.85em;
+    color: #6c757d;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+    transition: all 0.3s ease;
+}
+
+.btn-edit {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    margin: 10px 0 5px 0;
+    display: inline-block;
+}
+
+.btn-edit:hover {
+    background-color: #45a049;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.btn-edit:active {
+    transform: translateY(0);
+}
+
+/* Estilos para o rodapé */
+.result-footer {
+    padding: 15px 20px;
+    background-color: #f9f9f9;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    flex-wrap: wrap;
+    transition: all 0.3s ease;
+}
+
+body.dark-theme .result-footer {
+    background-color: #2d2d2d;
+    border-top-color: #444;
+}
+
+/* Estilos para o botão de editar */
+.btn-edit {
+    padding: 10px 20px;
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.btn-edit:hover {
+    background-color: #0b7dda;
+}
+
+body.dark-theme .btn-edit {
+    background-color: #1976d2;
+}
+
+body.dark-theme .btn-edit:hover {
+    background-color: #1565c0;
+}
+
+/* Estilos para o botão de exportar */
+.btn-exportar {
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.btn-exportar:hover {
+    background-color: #45a049;
+    transform: translateY(-1px);
+}
+
+.btn-exportar:active {
+    transform: translateY(0);
+}
+
+body.dark-theme .btn-exportar {
+    background-color: #2e7d32;
+}
+
+body.dark-theme .btn-exportar:hover {
+    background-color: #1b5e20;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .result-content {
+        flex-direction: column;
+    }
+    
+    .result-photo {
+        width: 100%;
+        height: 250px;
+        margin-bottom: 15px;
+    }
+    
+    .result-header {
+        text-align: center;
+    }
+    
+    .result-footer {
+        text-align: center;
+    }
+    
+    .result-footer {
+        justify-content: center;
+    }
+    
+    .btn-edit,
+    .btn-exportar {
+        flex: 1;
+        min-width: 120px;
+    }
+}
+
+.no-results {
+    text-align: center;
+    color: #6c757d;
+    padding: 30px 20px;
+    font-size: 1.1em;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin: 20px 0;
+    border: 1px dashed #dee2e6;
+    transition: all 0.3s ease;
+}
+
+body.dark-theme .no-results {
+    color: #adb5bd;
+    background-color: #2d2d2d;
+    border-color: #444;
+}
+
+/* Mensagem de carregamento */
+.loading-message {
+    text-align: center;
+    padding: 30px 20px;
+    color: #495057;
+    font-style: italic;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin: 20px 0;
+    border: 1px dashed #dee2e6;
+    transition: all 0.3s ease;
+}
+
+body.dark-theme .loading-message {
+    color: #e9ecef;
+    background-color: #2d2d2d;
+    border-color: #444;
+}
+
+/* Mensagem de erro */
+.error-message {
+    text-align: center;
+    padding: 15px 20px;
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 8px;
+    margin: 20px 0;
+    transition: all 0.3s ease;
+}
+
+body.dark-theme .error-message {
+    color: #ea868f;
+    background-color: #3d1a1d;
+    border-color: #842029;
+}
+
+/* Estilos para a página de cadastro */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.header-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-consultar {
+    width: auto;
+    padding: 8px 15px;
+    background-color: #2196F3;
+}
+
+.btn-consultar:hover {
+    background-color: #0b7dda;
+}
+
+.btn-logout {
+    width: auto;
+    padding: 8px 15px;
+    background-color: #f44336;
+}
+
+.btn-logout:hover {
+    background-color: #d32f2f;
+}
+
+.form-container {
+    background: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.foto-preview {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.foto-preview img {
+    max-width: 200px;
+    max-height: 200px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    .login-box,
+    .container {
+        padding: 15px;
+    }
+    
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .btn-logout {
+        margin-top: 10px;
+    }
+}
