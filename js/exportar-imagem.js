@@ -30,7 +30,7 @@ function exportarComoImagem(elemento, nomeArquivo) {
     
     // Configurações para o html2canvas
     const opcoes = {
-        scale: 2, // Usamos 1 para melhor compatibilidade com largura
+        scale: 3, // Usamos 1 para melhor compatibilidade com largura
         useCORS: true, // Permite carregar imagens de outras origens
         logging: false, // Desativa os logs
         backgroundColor: '#ffffff', // Fundo branco

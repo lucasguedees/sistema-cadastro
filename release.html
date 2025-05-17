@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Release Notes - Sistema de Cadastro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Form Styles */
+        .form-container {
+            background: var(--sidebar-bg);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .custom-checkbox {
+            display: block;
+            position: relative;
+            padding-left: 35px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            font-size: 16px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        .custom-checkbox input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+        
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 24px;
+            width: 24px;
+            background-color: #f8f9fa;
+            border: 2px solid var(--primary-color);
+            border-radius: 6px;
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .custom-checkbox:hover input ~ .checkmark {
+            background-color: #f0f0f0;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .custom-checkbox input:checked ~ .checkmark {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+            left: 8px;
+            top: 4px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        
+        .custom-checkbox input:checked ~ .checkmark:after {
+            display: block;
+            animation: check 0.2s ease-in-out;
+        }
+        
+        @keyframes check {
+            from { transform: scale(0.8) rotate(45deg); opacity: 0; }
+            to { transform: scale(1) rotate(45deg); opacity: 1; }
+        }
+        
+        .check-label {
+            font-weight: 500;
+            color: #333;
+            margin-left: 8px;
+            vertical-align: middle;
+            display: inline-block;
+            margin-top: 2px;
+        }
+        
+        .checkbox-container {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        .form-text {
+            margin: 0;
+            padding-left: 32px;
+            color: #6c757d;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+        
+        body.dark-theme .form-control {
+            border-color: #444;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(74, 107, 255, 0.2);
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .form-col {
+            flex: 1;
+        }
+
+        .form-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        .form-section h4 {
+            margin-top: 0;
+            color: #333;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .card {
+            margin-bottom: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .card-header {
+            background-color: #f5f5f5;
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .card-header select {
+            flex: 1;
+            margin-right: 10px;
+        }
+
+        .card-body {
+            padding: 15px;
+        }
+
+        .btn-remove {
+            color: #dc3545;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            font-size: 1.1em;
+        }
+
+        .btn-remove:hover {
+            color: #c82333;
+        }
+
+        /* Estilo específico para os botões de adicionar */
+        #adicionarEnvolvido,
+        #adicionarVitima {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            font-size: 0.9em;
+            margin: 5px 0;
+            transition: background-color 0.2s;
+        }
+
+        #adicionarEnvolvido:hover,
+        #adicionarVitima:hover {
+            background-color: #5a6268;
+        }
+        
+        /* Estilo para o select de tipo de envolvido */
+        .card .card-header .tipo-envolvido {
+            padding: 10px 15px;
+            font-size: 1em;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            background-color: white;
+            min-width: 180px;
+            cursor: pointer;
+            height: 40px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 12px auto;
+            padding-right: 30px;
+        }
+        
+        .card .card-header .tipo-envolvido:focus {
+            border-color: #80bdff;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+        
+        .card .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 15px;
+        }
+        
+        .card .card-header .btn-remove {
+            margin-left: 10px;
+            flex-shrink: 0;
+        }      
+        
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            text-align: center;
+            text-decoration: none;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+        
+        .btn-block {
+            display: block;
+            width: 100%;
+        }
+        
+        .result-container {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(74, 107, 255, 0.1);
+            border-radius: 4px;
+            border-left: 4px solid var(--primary-color);
+            display: none;
+        }
+        
+        .result-container h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+        
+        .message-textarea {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 15px;
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.5;
+            margin-top: 15px;
+            resize: vertical;
+            min-height: 200px;
+            width: 100%;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+        
+        .copy-btn {
+            background-color: #4CAF50;
+            margin-right: 0.5rem;
+        }
+        
+        .copy-btn:hover {
+            background-color: #45a049;
+        }
+        
+        .whatsapp-btn {
+            background-color: #25D366;
+        }
+        
+        .whatsapp-btn:hover {
+            background-color: #1fbb5d;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .form-col {
+                margin-bottom: 1.5rem;
+            }
+        }
+        .release-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .release-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .release-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .release-header p {
+            color: var(--text-color);
+            opacity: 0.8;
+            font-size: 1.1rem;
+        }
+        
+        .version-card {
+            background: var(--sidebar-bg);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .version-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        body.dark-theme .version-header {
+            border-bottom-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .version-title {
+            font-size: 1.5rem;
+            margin: 0;
+            color: var(--primary-color);
+        }
+        
+        .version-date {
+            background: rgba(74, 107, 255, 0.1);
+            color: var(--primary-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .features-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .feature-item {
+            display: flex;
+            margin-bottom: 1rem;
+            align-items: flex-start;
+        }
+        
+        .feature-icon {
+            color: #4CAF50;
+            margin-right: 1rem;
+            margin-top: 0.2rem;
+            flex-shrink: 0;
+        }
+        
+        .feature-text {
+            flex: 1;
+        }
+        
+        .feature-title {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+        
+        .feature-desc {
+            opacity: 0.9;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        .coming-soon {
+            text-align: center;
+            padding: 3rem 0;
+            opacity: 0.7;
+        }
+        
+        .coming-soon i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        @media (max-width: 768px) {
+            .release-header h1 {
+                font-size: 2rem;
+            }
+            
+            .version-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            
+            .version-date {
+                align-self: flex-start;
+            }
+        }
+    </style>
+</head>
+<body class="light-theme">
+    <!-- Menu Lateral -->
+    <div class="menu-overlay"></div>
+    <nav class="sidebar">
+        <div class="menu-header">
+            <h2>Menu</h2>
+            <button class="close-menu">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul class="menu-items">
+            <li><a href="cadastro.html" class="menu-item"><i class="fas fa-user-plus"></i> Cadastro</a></li>
+            <li><a href="release.html" class="menu-item active"><i class="fas fa-rocket"></i> Release</a></li>
+        </ul>
+    </nav>
+
+    <div class="main-content">
+        <header class="top-bar">
+            <button class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Alternar tema">
+                <i class="fas fa-moon"></i>
+            </button>
+        </header>
+        
+        <div class="release-container" style="max-width: 100%; padding: 0 15px;">
+            <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+                <header class="release-header animate__animated animate__fadeIn">
+                    <h1>Gerador de Release</h1>
+                </header>
+            </div>
+            
+            <form id="messageForm" class="form-container animate__animated animate__fadeIn">
+                <div class="form-group">
+                    <div class="checkbox-container">
+                        <label class="custom-checkbox">
+                            <input type="checkbox" id="dadosPreliminares">
+                            <span class="checkmark"></span>
+                            <span class="check-label">Dados preliminares</span>
+                        </label>
+                        <small class="form-text">Marque se os dados são iniciais e ainda não confirmados</small>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="tipificacao">Tipificação do fato <span class="text-danger">*</span></label>
+                    <input type="text" id="tipificacao" class="form-control" placeholder="Ex: Prisão por tráfico ilícito de drogas" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="linhaComplementar">Linha complementar (opcional)</label>
+                    <input type="text" id="linhaComplementar" class="form-control" placeholder="Ex: Confronto com a guarnição">
+                </div>
+                
+                <div class="form-group">
+                    <label for="local">Cidade - CRPO/Batalhão <span class="text-danger">*</span></label>
+                    <input type="text" id="local" class="form-control" placeholder="Ex: Lajeado - CRPO VT/22ºBPM" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="localFato">Local do Fato</label>
+                    <input type="text" id="localFato" class="form-control" placeholder="Ex: Rua das Flores, 123 - Centro">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="data">Data <span class="text-danger">*</span></label>
+                            <input type="date" id="data" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="hora">Hora (HH:MM) <span class="text-danger">*</span></label>
+                            <input type="time" id="hora" class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Envolvidos são adicionados dinamicamente na seção abaixo -->
+
+                <div class="form-group">
+                    <label for="motivacao">Motivação</label>
+                    <input type="text" id="motivacao" class="form-control" placeholder="Ex: Desconhecido ou descreva a motivação">
+                </div>
+
+                <div class="form-group">
+                    <label for="materialApreendido">Material Apreendido</label>
+                    <textarea id="materialApreendido" class="form-control" rows="2" placeholder="Exemplo: 01 celular, 02 armas de fogo, 100g de maconha"></textarea>
+                    <small class="form-text">Separe os itens com vírgula para quebrar em linhas</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="postoGraduacao">Oficial ou Graduado</label>
+                    <input type="text" id="postoGraduacao" class="form-control" placeholder="Ex: Tenente João da Silva">
+                </div>
+                
+                <!-- Seção de Envolvidos -->
+                <div class="form-section">
+                    <h4>Envolvidos</h4>
+                    <div id="envolvidosContainer">
+                        <!-- Envolvidos serão adicionados aqui dinamicamente -->
+                    </div>
+                    <button type="button" id="adicionarEnvolvido" class="btn btn-secondary">
+                        <i class="fas fa-plus"></i> Adicionar Envolvido
+                    </button>
+                </div>
+
+                <!-- Seção de Vítimas -->
+                <div class="form-section">
+                    <h4>Vítimas</h4>
+                    <div id="vitimasContainer">
+                        <!-- Vítimas serão adicionadas aqui dinamicamente -->
+                    </div>
+                    <button type="button" id="adicionarVitima" class="btn btn-secondary">
+                        <i class="fas fa-plus"></i> Adicionar Vítima
+                    </button>
+                </div>
+                
+                <div class="form-group">
+                    <label for="numeroRegistro">Nº Registro (DPPA/BMMOB)</label>
+                    <input type="text" id="numeroRegistro" class="form-control" placeholder="Ex: 12345/2024">
+                </div>
+                
+                <div class="form-group">
+                    <label for="descricao">Resumo do Fato</label>
+                    <textarea id="descricao" class="form-control" rows="4" placeholder="Forneça detalhes adicionais sobre o fato..."></textarea>
+                </div>
+                
+                <button type="submit" class="btn btn-block">Gerar Mensagem</button>
+            </form>
+            
+            <div id="result" class="result-container animate__animated animate__fadeIn" style="display: none;">
+                <div class="result-header">
+                    <h3>Mensagem Formatada para WhatsApp</h3>
+                    <div class="result-actions">
+                        <button id="copyBtn" class="btn btn-icon" title="Copiar para a área de transferência">
+                            <i class="fas fa-copy"></i> Copiar
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <textarea id="messageContent" class="form-control message-textarea" rows="10" readonly></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Template para envolvido -->
+    <template id="envolvidoTemplate">
+        <div class="card envolvido-card">
+            <div class="card-header">
+                <select class="form-control tipo-envolvido" required>
+                    <option value="">Selecione o tipo</option>
+                    <option value="Preso">Preso</option>
+                    <option value="Autor">Autor</option>
+                    <option value="Suspeito">Suspeito</option>
+                    <option value="Apreendido">Apreendido</option>
+                </select>
+                <button type="button" class="btn btn-icon btn-remove" title="Remover">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label>Nome Completo</label>
+                    <input type="text" class="form-control nome" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label>Data de Nascimento</label>
+                            <input type="date" class="form-control data-nascimento" placeholder="DD/MM/YYYY">
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label>Antecedentes</label>
+                            <input type="text" class="form-control antecedentes" placeholder="Informe os antecedentes">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>OrCrim</label>
+                    <input type="text" class="form-control orcrim" placeholder="Informe ou escreva 'desconhecido'">
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- Template para vítima -->
+    <template id="vitimaTemplate">
+        <div class="card vitima-card">
+            <div class="card-header">
+                <span>Vítima</span>
+                <button type="button" class="btn btn-icon btn-remove" title="Remover">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label>Nome Completo</label>
+                    <input type="text" class="form-control nome" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label>Data de Nascimento</label>
+                            <input type="date" class="form-control data-nascimento" placeholder="DD/MM/YYYY">
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label>Antecedentes</label>
+                            <input type="text" class="form-control antecedentes" placeholder="Informe os antecedentes">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>OrCrim</label>
+                    <input type="text" class="form-control orcrim" placeholder="Informe ou escreva 'desconhecido'">
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- Scripts principais -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-config.js"></script>
+    <script src="js/menu.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        // Verifica se o usuário está autenticado
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuth();
+        });
+    </script>
+    <script src="js/theme.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Format date to DD/MM/YYYY for display
+            function formatarDataParaExibicao(data) {
+                if (!data) return '';
+                const [year, month, day] = data.split('-');
+                return `${day}/${month}/${year}`;
+            }
+            
+            // Adicionar envolvido
+            const adicionarEnvolvidoBtn = document.getElementById('adicionarEnvolvido');
+            const envolvidosContainer = document.querySelector('.form-section #envolvidosContainer');
+            const envolvidoTemplate = document.getElementById('envolvidoTemplate');
+            
+            adicionarEnvolvidoBtn.addEventListener('click', function() {
+                const clone = envolvidoTemplate.content.cloneNode(true);
+                const card = clone.querySelector('.envolvido-card');
+                
+                // Adicionar evento de remoção
+                const removeBtn = card.querySelector('.btn-remove');
+                removeBtn.addEventListener('click', function() {
+                    card.remove();
+                });
+                
+                envolvidosContainer.appendChild(card);
+            });
+            
+            // Adicionar vítima
+            const adicionarVitimaBtn = document.getElementById('adicionarVitima');
+            const vitimasContainer = document.getElementById('vitimasContainer');
+            const vitimaTemplate = document.getElementById('vitimaTemplate');
+            
+            adicionarVitimaBtn.addEventListener('click', function() {
+                const clone = vitimaTemplate.content.cloneNode(true);
+                const card = clone.querySelector('.vitima-card');
+                
+                // Adicionar evento de remoção
+                const removeBtn = card.querySelector('.btn-remove');
+                removeBtn.addEventListener('click', function() {
+                    card.remove();
+                });
+                
+                vitimasContainer.appendChild(card);
+            });
+            
+            // Formulário principal
+            const form = document.getElementById('messageForm');
+            const result = document.getElementById('result');
+            const messageContent = document.getElementById('messageContent');
+            const copyBtn = document.getElementById('copyBtn');
+            // Gerar mensagem
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const tipificacao = document.getElementById('tipificacao').value;
+                const linhaComplementar = document.getElementById('linhaComplementar').value;
+                const local = document.getElementById('local').value;
+                const dataInput = document.getElementById('data').value;
+                const horaInput = document.getElementById('hora').value;
+                
+                // Verificar se é dado preliminar
+                const isPreliminar = document.getElementById('dadosPreliminares').checked;
+                
+                // Inicializar variáveis de data/hora
+                let diaFormatado = '';
+                let mesAbreviado = '';
+                let anoFormatado = '';
+                
+                // Se não for dado preliminar, validar campos obrigatórios
+                if (!isPreliminar) {
+                    // Validar campos obrigatórios
+                    if (!dataInput || !horaInput) {
+                        alert('Por favor, preencha todos os campos obrigatórios');
+                        return;
+                    }
+                    
+                    // Formatar data para o padrão desejado (DDMMMAAAA)
+                    const dataParts = dataInput.split('-');
+                    diaFormatado = dataParts[2];
+                    const mesNumero = parseInt(dataParts[1]);
+                    anoFormatado = dataParts[0];
+                    const mesesAbreviados = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
+                    mesAbreviado = mesesAbreviados[mesNumero - 1];
+                    
+                    const horaRegex = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/;
+                    if (!horaRegex.test(horaInput)) {
+                        alert('Por favor, insira uma hora válida no formato HH:MM');
+                        return;
+                    }
+                } else if (dataInput) {
+                    // Se for preliminar mas tiver data, formata normalmente
+                    const dataParts = dataInput.split('-');
+                    diaFormatado = dataParts[2];
+                    const mesNumero = parseInt(dataParts[1]);
+                    anoFormatado = dataParts[0];
+                    const mesesAbreviados = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
+                    mesAbreviado = mesesAbreviados[mesNumero - 1];
+                }
+                
+                // Formatar hora (remover os dois pontos) se existir
+                const horaFormatada = horaInput ? horaInput.replace(':', '') : '';
+                
+                // Obter dados do local
+                const localFato = document.getElementById('localFato').value || '';
+                
+                // Construir a mensagem formatada
+                let mensagem = `*${tipificacao.toUpperCase()}*`;
+                
+                // Adicionar linha complementar se existir
+                if (linhaComplementar && linhaComplementar.trim() !== '') {
+                    mensagem += `\n*${linhaComplementar.toUpperCase()}*`;
+                }
+                
+                // Adicionar local
+                mensagem += `\n*${local.toUpperCase()}*`;
+                
+                // Adicionar data/hora e local do fato
+                mensagem += '\n\n*Data/Hora:* ';
+                if (dataInput) {
+                    mensagem += `${diaFormatado}${horaFormatada}${mesAbreviado}${anoFormatado}`;
+                }
+                
+                // Adicionar endereço se preenchido
+                mensagem += '\n*Local do Fato:* ';
+                if (localFato) {
+                    mensagem += localFato;
+                }
+                
+                // Adicionar envolvidos se existirem
+                const envolvidos = document.querySelectorAll('.envolvido-card');
+                if (envolvidos.length > 0) {
+                    envolvidos.forEach((envolvido, index) => {
+                        const nome = envolvido.querySelector('.nome').value.trim();
+                        if (nome) {
+                            mensagem += '\n\n*Preso: *';
+                            mensagem += `${nome}`;
+                            
+                            const dataNascInput = envolvido.querySelector('.data-nascimento').value;
+                            const dataNasc = dataNascInput ? formatarDataParaExibicao(dataNascInput) : '';
+                            const orcrim = envolvido.querySelector('.orcrim').value.trim();
+                            const antecedentes = envolvido.querySelector('.antecedentes').value.trim();
+                            
+                            if (dataNasc) mensagem += `\n*Data Nasc.:* ${dataNasc}`;
+                            if (orcrim) mensagem += `\n*OrCrim:* ${orcrim}`;
+                            if (antecedentes) mensagem += `\n*Antecedentes:* ${antecedentes}`;
+                        }
+                    });
+                }
+                
+                // Adicionar vítimas se existirem
+                const vitimas = document.querySelectorAll('.vitima-card');
+                if (vitimas.length > 0) {
+                    vitimas.forEach((vitima, index) => {
+                        const nome = vitima.querySelector('.nome').value.trim();
+                        if (nome) {
+                            mensagem += '\n\n*Vítima: *';
+                            mensagem += `${nome}`;
+                            
+                            const dataNascInput = vitima.querySelector('.data-nascimento')?.value;
+                            const dataNasc = dataNascInput ? formatarDataParaExibicao(dataNascInput) : '';
+                            const orcrim = vitima.querySelector('.orcrim')?.value.trim() || '';
+                            
+                            if (dataNasc) mensagem += `\n*Data Nasc.:* ${dataNasc}`;
+                            if (orcrim) mensagem += `\n*OrCrim:* ${orcrim}`;
+                        }
+                    });
+                }
+                
+                // Adicionar motivação se preenchida
+                const motivacao = document.getElementById('motivacao').value.trim();
+                if (motivacao) {
+                    mensagem += '\n\n*Motivação:*';
+                    mensagem += `\n${motivacao}`;
+                }
+
+                // Adicionar material apreendido se preenchido
+                const materialApreendido = document.getElementById('materialApreendido').value.trim();
+                if (materialApreendido) {
+                    mensagem += '\n\n*Material Apreendido:*';
+                    // Quebrar por vírgula e adicionar cada item em uma nova linha
+                    const itens = materialApreendido.split(',').map(item => item.trim()).filter(item => item);
+                    itens.forEach(item => {
+                        mensagem += `\n${item}`;
+                    });
+                }
+
+                // Adicionar oficial/graduação se preenchido
+                const postoGraduacao = document.getElementById('postoGraduacao').value.trim();
+                if (postoGraduacao) {
+                    mensagem += '\n\n*Oficial ou Graduado:*';
+                    mensagem += `\n${postoGraduacao}`;
+                }
+                
+                // Adicionar resumo do fato e número de registro se preenchidos
+                const descricao = document.getElementById('descricao').value.trim();
+                const numeroRegistro = document.getElementById('numeroRegistro').value.trim();
+                
+                if (descricao || numeroRegistro) {
+                    mensagem += '\n\n*RESUMO DO FATO*';
+                    if (descricao) {
+                        mensagem += `\n${descricao}`;
+                    }
+                    if (numeroRegistro) {
+                        mensagem += `\n\n*Nº Registro:* ${numeroRegistro}`;
+                    }
+                }
+                
+                // Adicionar mensagem de ocorrência em andamento se for preliminar
+                if (isPreliminar) {
+                    mensagem += '\n\n*OCORRÊNCIA EM ANDAMENTO / COLHENDO MAIORES INFORMAÇÕES*';
+                }
+                
+                // Não adicionar mensagem de agradecimento automática
+                
+                // Exibir resultado
+                messageContent.value = mensagem;
+                result.style.display = 'block';
+                
+                // Selecionar todo o texto para facilitar a cópia
+                messageContent.select();
+                
+                // Rolar para o resultado
+                result.scrollIntoView({ behavior: 'smooth' });
+                
+                // Mensagem formatada pronta para uso
+            });
+            
+            // Copiar para a área de transferência
+            copyBtn.addEventListener('click', function() {
+                messageContent.select();
+                document.execCommand('copy');
+                const originalText = copyBtn.innerHTML;
+                copyBtn.innerHTML = '<i class="fas fa-check"></i> Copiado!';
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalText;
+                }, 2000);
+                
+                // Desselecionar o texto após copiar
+                window.getSelection().removeAllRanges();
+            });
+        });
+    </script>
+</body>
+</html>
