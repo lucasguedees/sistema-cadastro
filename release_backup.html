@@ -714,19 +714,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-row">
-                    <div class="form-col">
-                        <div class="form-group">
-                            <label>RG</label>
-                            <input type="text" class="form-control rg" placeholder="RG">
-                        </div>
-                    </div>
-                    <div class="form-col">
-                        <div class="form-group">
-                            <label>OrCrim</label>
-                            <input type="text" class="form-control orcrim" placeholder="Informe ou escreva 'desconhecido'">
-                        </div>
-                    </div>
+                <div class="form-group">
+                    <label>OrCrim</label>
+                    <input type="text" class="form-control orcrim" placeholder="Informe ou escreva 'desconhecido'">
                 </div>
             </div>
         </div>
@@ -760,19 +750,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-row">
-                    <div class="form-col">
-                        <div class="form-group">
-                            <label>RG</label>
-                            <input type="text" class="form-control rg" placeholder="RG">
-                        </div>
-                    </div>
-                    <div class="form-col">
-                        <div class="form-group">
-                            <label>OrCrim</label>
-                            <input type="text" class="form-control orcrim" placeholder="Informe ou escreva 'desconhecido'">
-                        </div>
-                    </div>
+                <div class="form-group">
+                    <label>OrCrim</label>
+                    <input type="text" class="form-control orcrim" placeholder="Informe ou escreva 'desconhecido'">
                 </div>
             </div>
         </div>
@@ -924,7 +904,7 @@
                     envolvidos.forEach((envolvido, index) => {
                         const nome = envolvido.querySelector('.nome').value.trim();
                         if (nome) {
-                            mensagem += '\n\n*Preso:* ';
+                            mensagem += '\n\n*Preso: *';
                             mensagem += `${nome}`;
                             
                             const dataNascInput = envolvido.querySelector('.data-nascimento').value;
@@ -947,7 +927,7 @@
                     vitimas.forEach((vitima, index) => {
                         const nome = vitima.querySelector('.nome').value.trim();
                         if (nome) {
-                            mensagem += '\n\n*Vítima:* ';
+                            mensagem += '\n\n*Vítima: *';
                             mensagem += `${nome}`;
                             
                             const dataNascInput = vitima.querySelector('.data-nascimento')?.value;

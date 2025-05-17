@@ -29,7 +29,7 @@ function checkAuth() {
 // Função de login
 function login(username, password) {
     // Credenciais fixas conforme solicitado
-    if (username === 'admin' && password === 'admin*') {
+    if (username === 'admin' && password === 'admin*' || username === 'Admin' && password === 'admin*') {
         localStorage.setItem('isLoggedIn', 'true');
         window.location.href = 'cadastro.html';
         return true;

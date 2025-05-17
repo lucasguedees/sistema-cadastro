@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const menuOverlay = document.querySelector('.menu-overlay');
     const menuItems = document.querySelectorAll('.menu-item');
     const releaseLink = document.getElementById('releaseLink');
+    const logoutBtn = document.getElementById('logoutBtn');
     
     // Marcar item ativo com base na URL atual
     const currentPage = window.location.pathname.split('/').pop() || 'index.html';
@@ -47,6 +48,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (closeMenu) {
         closeMenu.addEventListener('click', closeMenuHandler);
+    }
+
+    // Logout
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Aqui você pode adicionar a lógica de logout, como limpar o localStorage, etc.
+            // Por exemplo:
+            // localStorage.removeItem('token');
+            // window.location.href = 'login.html';
+            
+            // Por enquanto, apenas mostra um alerta
+            if (confirm('Tem certeza que deseja sair?')) {
+                // Redireciona para a página de login ou página inicial
+                window.location.href = 'index.html';
+            }
+        });
     }
 
     // Fechar menu ao clicar no overlay
