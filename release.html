@@ -127,19 +127,26 @@
             border: 1px solid #ddd;
             border-radius: 4px;
             font-size: 1rem;
-            transition: border-color 0.3s, box-shadow 0.3s;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            margin-bottom: 1rem;
+            background-color: white;
+            color: #333;
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
         }
         
         body.dark-theme .form-control {
-            border-color: #444;
+            background-color: #3d3d3d;
+            border-color: #555;
+            color: #f5f5f5;
+        }
+        
+        body.dark-theme .form-control::placeholder {
+            color: #aaa;
         }
         
         .form-control:focus {
             outline: none;
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 2px rgba(74, 107, 255, 0.2);
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
         }
         
         .form-row {
@@ -169,10 +176,18 @@
         }
 
         .card {
-            margin-bottom: 15px;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
+            background: white;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1rem;
             overflow: hidden;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+            border: 1px solid #e0e0e0;
+        }
+        
+        body.dark-theme .card {
+            background: #2d2d2d;
+            border-color: #444;
         }
 
         .card-header {
@@ -200,10 +215,12 @@
             cursor: pointer;
             padding: 5px;
             font-size: 1.1em;
+            transition: none !important;
         }
 
         .btn-remove:hover {
             color: #c82333;
+            transform: none !important;
         }
 
         /* Estilo específico para os botões de adicionar */
@@ -236,7 +253,8 @@
             border: 1px solid #ced4da;
             border-radius: 4px;
             background-color: white;
-            min-width: 180px;
+            color: #333;
+            width: 100%;
             cursor: pointer;
             height: 40px;
             -webkit-appearance: none;
@@ -247,6 +265,14 @@
             background-position: right 10px center;
             background-size: 12px auto;
             padding-right: 30px;
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+        }
+        
+        body.dark-theme .card .card-header .tipo-envolvido {
+            background-color: #3d3d3d;
+            border-color: #555;
+            color: #f5f5f5;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23ffffff%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
         }
         
         .card .card-header .tipo-envolvido:focus {
@@ -258,13 +284,37 @@
         .card .card-header {
             display: flex;
             align-items: center;
-            justify-content: space-between;
             padding: 12px 15px;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #e0e0e0;
+            gap: 10px;
+        }
+        
+        .card .card-header .tipo-envolvido {
+            flex: 1;
+            min-width: 0; /* Permite que o select encolha abaixo do tamanho mínimo do conteúdo */
         }
         
         .card .card-header .btn-remove {
-            margin-left: 10px;
+            width: 50%;
+            display: flex;
+            justify-content: flex-end;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body.dark-theme .card .card-header {
+            background-color: #383838;
+            border-bottom-color: #444;
+        }
+        
+        .card .card-header .btn-remove {
             flex-shrink: 0;
+            padding: 8px 0;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }      
         
         .btn {
@@ -659,9 +709,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label>OrCrim</label>
-                    <input type="text" class="form-control orcrim" placeholder="Informe ou escreva 'desconhecido'">
+                <div class="form-row">
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label>RG</label>
+                            <input type="text" class="form-control rg" placeholder="RG (opcional)">
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label>OrCrim</label>
+                            <input type="text" class="form-control orcrim" placeholder="Informe ou escreva 'desconhecido'">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -695,9 +755,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label>OrCrim</label>
-                    <input type="text" class="form-control orcrim" placeholder="Informe ou escreva 'desconhecido'">
+                <div class="form-row">
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label>RG</label>
+                            <input type="text" class="form-control rg" placeholder="RG (opcional)">
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label>OrCrim</label>
+                            <input type="text" class="form-control orcrim" placeholder="Informe ou escreva 'desconhecido'">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -849,15 +919,17 @@
                     envolvidos.forEach((envolvido, index) => {
                         const nome = envolvido.querySelector('.nome').value.trim();
                         if (nome) {
-                            mensagem += '\n\n*Preso: *';
+                            mensagem += '\n\n*Preso:* ';
                             mensagem += `${nome}`;
                             
                             const dataNascInput = envolvido.querySelector('.data-nascimento').value;
                             const dataNasc = dataNascInput ? formatarDataParaExibicao(dataNascInput) : '';
+                            const rg = envolvido.querySelector('.rg').value.trim();
                             const orcrim = envolvido.querySelector('.orcrim').value.trim();
                             const antecedentes = envolvido.querySelector('.antecedentes').value.trim();
                             
                             if (dataNasc) mensagem += `\n*Data Nasc.:* ${dataNasc}`;
+                            if (rg) mensagem += `\n*RG:* ${rg}`;
                             if (orcrim) mensagem += `\n*OrCrim:* ${orcrim}`;
                             if (antecedentes) mensagem += `\n*Antecedentes:* ${antecedentes}`;
                         }
@@ -870,14 +942,16 @@
                     vitimas.forEach((vitima, index) => {
                         const nome = vitima.querySelector('.nome').value.trim();
                         if (nome) {
-                            mensagem += '\n\n*Vítima: *';
+                            mensagem += '\n\n*Vítima:* ';
                             mensagem += `${nome}`;
                             
                             const dataNascInput = vitima.querySelector('.data-nascimento')?.value;
                             const dataNasc = dataNascInput ? formatarDataParaExibicao(dataNascInput) : '';
-                            const orcrim = vitima.querySelector('.orcrim')?.value.trim() || '';
+                            const rg = vitima.querySelector('.rg')?.value.trim();
+                            const orcrim = vitima.querySelector('.orcrim')?.value.trim();
                             
                             if (dataNasc) mensagem += `\n*Data Nasc.:* ${dataNasc}`;
+                            if (rg) mensagem += `\n*RG:* ${rg}`;
                             if (orcrim) mensagem += `\n*OrCrim:* ${orcrim}`;
                         }
                     });
